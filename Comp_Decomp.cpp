@@ -36,38 +36,37 @@ std::string decompression(std::string str)
             }
 			
         }
-		else if(str[i] == ' ') 
-		{                        
-			int j = i + 1;
+	else if(str[i] == ' ') 
+	{                        
+		int j = i + 1;
+		while(!(str[j] == '\0' || str[j] == ' ' || str[j] == '\n' || (str[j] <= 126 && str[j] >= 58) || (str[j] <= 46 && str[j] >= 33))){j++;}
 
-            while(!(str[j] == '\0' || str[j] == ' ' || str[j] == '\n' || (str[j] <= 126 && str[j] >= 58) || (str[j] <= 46 && str[j] >= 33))){j++;}
+        --j;
+		std::string ptr = str.substr(i + 1, j - i);
+		num = std::stoi(ptr);
+		i += j - i;
 
-            --j;
-			std::string ptr = str.substr(i + 1, j - i);
-			num = std::stoi(ptr);
-			i += j - i;
-
-			for (int k = 0;k < num; ++k)
-			{
+		for (int k = 0;k < num; ++k)
+		{
 				
-				if(str[j - 2] == ' ')
-                {
-                    word += ' ';
-                }
-                else
-                {
-                    ++j;
-                    word += ' ';
-                }
+			if(str[j - 2] == ' ')
+            {
+                word += ' ';
+            }
+            else
+            {
+            	++j;
+                word += ' ';
+            }
 				
-			}
-		}		
-		else if(str[i + 1] == '\0') 
-		{                        
-            word += '\n';                
 		}
+	}		
+	else if(str[i + 1] == '\0') 
+	{                        
+        word += '\n';                
+	}
 				
-    }
+	}
 	str = "";
 
     return word;
