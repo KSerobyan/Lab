@@ -12,7 +12,7 @@ std::string decompression(std::string str)
     {
         if((str[i] <= 126 && str[i] >= 58) || (str[i] <= 46 && str[i] >= 33))
         {
-            int j = i + 1;
+        	int j = i + 1;
 
             while(!(str[j] == '\0' || str[j] == ' ' || str[j] == '\n' || (str[j] <= 126 && str[j] >= 58) || (str[j] <= 46 && str[j] >= 33))){j++;}
 
@@ -32,7 +32,9 @@ std::string decompression(std::string str)
                     ++j;
                     word += str[j - 2];
                 }
+				
             }
+			
         }
 		else if(str[i] == ' ') 
 		{                        
@@ -47,6 +49,7 @@ std::string decompression(std::string str)
 
 			for (int k = 0;k < num; ++k)
 			{
+				
 				if(str[j - 2] == ' ')
                 {
                     word += ' ';
@@ -56,6 +59,7 @@ std::string decompression(std::string str)
                     ++j;
                     word += ' ';
                 }
+				
 			}
 		}		
 		else if(str[i + 1] == '\0') 
@@ -77,8 +81,8 @@ std::string compressor(std::string text)
 	static int count = 1;
 
 	for(int i = 0; i < text.length(); ++i)
-
-    	{
+	{
+		
 		if(text[i] == text[i + 1])
 		{   
 			count++;
@@ -90,14 +94,14 @@ std::string compressor(std::string text)
 			zip += '\n';
 		}
 		else
-            {
+        {
             zip+= text[i];
 			zip+= std::to_string(count);
 			count = 1;
-            }
+        }
 
        
-    	}
+    }
 
         return zip;
 }
@@ -159,6 +163,7 @@ int main()
 		std::ifstream fin(path_in);
 		if(fin.is_open())
 		{
+			
 			while(std::getline(fin, word))	
 
 			{
