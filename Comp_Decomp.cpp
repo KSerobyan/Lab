@@ -5,7 +5,7 @@
 
 std::string decompression(std::string str)
 {
-    std::string word = "";
+    std::string text = "";
     int num;
     int size = str.length();
     for(int i = 0; i <= size; ++i)
@@ -25,12 +25,12 @@ std::string decompression(std::string str)
             {
                 if(((str[j - 2] <= 126 && str[j - 2] >= 58)) || (str[j - 2] <= 46 && str[j - 2] >= 33))
                 {
-                    word += str[j - 2];
+                    text += str[j - 2];
 				}
                 else
                 {
                     ++j;
-                    word += str[j - 2];
+                    text += str[j - 2];
                 }
 				
             }
@@ -51,12 +51,12 @@ std::string decompression(std::string str)
 				
 				if(str[j - 2] == ' ')
             	{
-                	word += ' ';
+                	text += ' ';
             	}
             	else
             	{
             		++j;
-                	word += ' ';
+                	text += ' ';
             	}
 				
 			}
@@ -64,13 +64,13 @@ std::string decompression(std::string str)
 		}		
 		else if(str[i + 1] == '\0') 
 		{                        
-        	word += '\n';                
+        	text += '\n';                
 		}
 				
 	}
 	str = "";
 
-    return word;
+    return text;
 }
             
 
@@ -89,14 +89,14 @@ std::string compressor(std::string text)
 		}
 		else if(text[i + 1] == '\0')
 		{
-			zip +=text[i];
+			zip += text[i];
 			zip += std::to_string(count);
 			zip += '\n';
 		}
 		else
         {
             zip+= text[i];
-			zip+= std::to_string(count);
+			zip += std::to_string(count);
 			count = 1;
         }
 
@@ -108,7 +108,7 @@ std::string compressor(std::string text)
 
 int main()
 {
-	std::string word;
+	std::string text;
 	int choice;
 	std::cout << "Press 1 if you want to compress a file " << std::endl;
 	std::cout << "Press 2 if you want to decompress a file " << std::endl;
@@ -128,10 +128,10 @@ int main()
 		if(fin.is_open())
 		{
 
-			while(std::getline(fin, word))
+			while(std::getline(fin, text))
 
 			{
-				if(compressor(word).length() > word.length())
+				if(compressor(text).length() > text.length())
 
 				{
 					std::cout << "Please try again, the compressed text is going to be longer than the initial one." << std::endl;
@@ -141,7 +141,7 @@ int main()
 				{
 					if (fout.is_open())
 				{
-					fout << compressor(word);
+					fout << compressor(text);
 				}
 				}
 				std::cout << std::endl;
@@ -164,12 +164,12 @@ int main()
 		if(fin.is_open())
 		{
 			
-			while(std::getline(fin, word))	
+			while(std::getline(fin, text))	
 
 			{
 				if (fout.is_open())
 				{
-					fout << decompression(word);
+					fout << decompression(text);
 				}
 			}
 			std::cout << std::endl;
